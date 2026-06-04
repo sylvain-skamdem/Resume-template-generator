@@ -48,7 +48,7 @@ pipeline {
                contextPath: 'resume-generator',
                war: 'target/resume-generator-service.war',
                containerId: 'tomcat9x', // Note: plugin uses tomcat9x profile even for newer versions sometimes
-               url: 'http://107.22.139.149:8080/',
+               url: 'http://34.207.136.141:8080/',
                credentialsId: 'tomcat-manager-credentials'
       }
   }
