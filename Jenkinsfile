@@ -44,18 +44,14 @@ pipeline {
     }
     stage('Deploy to Tomcat 11') {
       steps {
-          // Deploy step provided by the Deploy to Container Plugin
-          deploy artifacts: '${env.WAR_FILE_BUILT}', 
-                contextPath: '', 
-                war: null, 
-                containers: [
-                    tomcat9x(
-                        url: 'http://${env.TOMCAT_SERVER_IP}:${env.TOMCAT_SERVER_PORT}',
-                        credentialsId: "${env.TOMCAT_DEPLOY_ID}",
-                    )
-                ]
+        deploy artifacts: 'target/resume-generator-service.war',
+               contextPath: 'resume-generator',
+               war: 'target/resume-generator-service.war',
+               containerId: 'tomcat9x', // Note: plugin uses tomcat9x profile even for newer versions sometimes
+               url: 'http://107.22.139.149:8080/',
+               credentialsId: 'tomcat-manager-credentials'
       }
-    }
+  }
   }
   post {
       always {
