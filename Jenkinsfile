@@ -44,14 +44,12 @@ pipeline {
     }
     stage('Deploy to Tomcat 11') {
       steps {
-        deploy artifacts: 'target/resume-generator-service.war',
-               contextPath: 'resume-generator',
-               war: 'target/resume-generator-service.war',
-               containerId: 'tomcat9x', // Note: plugin uses tomcat9x profile even for newer versions sometimes
-               url: 'http://34.207.136.141:8080/',
-               credentialsId: 'tomcat-manager-credentials'
+        // Uses your standard text credentials to run a raw HTTP POST upload
+        withCredentials([usernamePassword(credentialsId: 'tomcat-manager-creds', passwordVariable: 'TOMCAT_PASS', usernameVariable: 'TOMCAT_USER')]) {
+            sh "curl -u ${TOMCAT_USER}:${TOMCAT_PASS} --upload-file target/resume-generator-service.war 'http://34.207.136.141:8080/manager/text/deploy?path=/resume-generator-service&update=true'"
+        }
       }
-  }
+    }
   }
   post {
       always {
