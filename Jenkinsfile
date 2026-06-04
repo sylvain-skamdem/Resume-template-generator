@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     TOMCAT_DEPLOY_ID='deployer'
-    TOMCAT_SERVER_IP='34.207.136.141'
+    TOMCAT_SERVER_IP='107.22.139.149'
     TOMCAT_SERVER_PORT='8080'
     WAR_FILE_BUILT='target/r*.war'
   }
