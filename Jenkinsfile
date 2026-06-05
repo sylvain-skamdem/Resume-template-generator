@@ -45,7 +45,7 @@ pipeline {
     stage('Deploy to Tomcat 11') {
       steps {
         // Uses your standard text credentials to run a raw HTTP POST upload
-        withCredentials([usernamePassword(credentialsId: 'tomcat-manager-creds', passwordVariable: 'TOMCAT_PASS', usernameVariable: 'TOMCAT_USER')]) {
+        withCredentials([usernamePassword(credentialsId: 'deployer', passwordVariable: 'TOMCAT_PASS', usernameVariable: 'TOMCAT_USER')]) {
             sh "curl -u ${TOMCAT_USER}:${TOMCAT_PASS} --upload-file target/resume-generator-service.war 'http://54.210.32.21:8080/manager/text/deploy?path=/resume-generator-service&update=true'"
         }
       }
