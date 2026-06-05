@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     TOMCAT_DEPLOY_ID='deployer'
-    TOMCAT_SERVER_IP='107.22.139.149'
+    TOMCAT_SERVER_IP='54.210.32.21'
     TOMCAT_SERVER_PORT='8080'
     WAR_FILE_BUILT='target/r*.war'
   }
@@ -46,7 +46,7 @@ pipeline {
       steps {
         // Uses your standard text credentials to run a raw HTTP POST upload
         withCredentials([usernamePassword(credentialsId: 'tomcat-manager-creds', passwordVariable: 'TOMCAT_PASS', usernameVariable: 'TOMCAT_USER')]) {
-            sh "curl -u ${TOMCAT_USER}:${TOMCAT_PASS} --upload-file target/resume-generator-service.war 'http://34.207.136.141:8080/manager/text/deploy?path=/resume-generator-service&update=true'"
+            sh "curl -u ${TOMCAT_USER}:${TOMCAT_PASS} --upload-file target/resume-generator-service.war 'http://54.210.32.21:8080/manager/text/deploy?path=/resume-generator-service&update=true'"
         }
       }
     }
